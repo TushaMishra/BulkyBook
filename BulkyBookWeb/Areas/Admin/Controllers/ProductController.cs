@@ -5,10 +5,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using Bulky.Model.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using BulkyBook.Utility;
 
 namespace BulkyBookWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -30,13 +33,13 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             {
                 Text = u.Name,
                 Value = u.Id.ToString(),
-            });*/
+            });*/  // EF Projection  select only one coloumn
 
-            // Method 1: -> ViewBag
+            // Method 1: -> ViewBag   ->Controller to view not wise versa
 
-            /*ViewBag.CategoryList = CategoryList;*/   // ViewBag.key = value;
+            /*ViewBag.CategoryList = CategoryList;*/   // ViewBag.key = value; 
 
-            // Method 2: -> ViewData
+            // Method 2: -> ViewData   ->Controller to view not wise versa
 
             /*ViewData["CategoryList"] = CategoryList;*/
             ProductVM productVM = new()
@@ -175,7 +178,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             var productToBeDeleted = _unitOfWork.Product.Get(u => u.Id == id);
             if (productToBeDeleted == null)
             {
-                return Json(new { seccess = false, message = "Error while Deleting" });
+                return Json(new { success = false, message = "Error while Deleting" });
             }
             var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, 
                                productToBeDeleted.ImageUrl.Trim('\\'));
@@ -186,7 +189,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             _unitOfWork.Product.Remove(productToBeDeleted);
             _unitOfWork.Save();
 
-            return Json(new { seccess = true, message = "Deleted Successfully" });
+            return Json(new { success = true, message = "Deleted Successfully" });
 
             List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
             return Json(new { data = objProductList });

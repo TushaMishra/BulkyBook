@@ -2,11 +2,14 @@
 using BulkyBook.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using BulkyBook.Utility;
 
 namespace BulkyBookWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+    [Authorize(Roles = SD.Role_Admin)]
+    public class CategoryController : Microsoft.AspNetCore.Mvc.Controller
     {
         /*        private readonly ApplicationDbContext _db;
                 public CategoryController(ApplicationDbContext db)
@@ -81,9 +84,12 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 /*               _db.Categories.Update(obj);
-                               _db.Categories.SaveChange();*/
-                /*_categoryRepo.Update(obj);
-                _categoryRepo.Save();*/
+                               _db.Categories.SaveChange();
+                */
+                /*  
+                 *  _categoryRepo.Update(obj);
+                    _categoryRepo.Save();
+                */
                 _unitOfWork.Category.Update(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Category updated successfully";

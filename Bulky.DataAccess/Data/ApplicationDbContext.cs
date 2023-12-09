@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using BulkyBook.Models;
+using BulkyBook.Models.Models;
 
 namespace BulkyBook.DataAccess.DataAccess.Data
 {
@@ -13,7 +14,9 @@ namespace BulkyBook.DataAccess.DataAccess.Data
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Company> Companies { get; set; }
         /*        public DbSet<className> TableName { get; set; }
         */
 
