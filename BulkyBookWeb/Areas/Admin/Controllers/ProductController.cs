@@ -11,9 +11,9 @@ using BulkyBook.Utility;
 namespace BulkyBookWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = SD.Role_Admin)]
+    /*[Authorize(Roles = SD.Role_Admin)]*/
     public class ProductController : Controller
-    {
+    {   
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
         public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
@@ -101,8 +101,9 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                     _unitOfWork.Save();
                     TempData["sucess"] = "Product created successfully";
                     return RedirectToAction("Index");
-                }
-                else
+            }
+
+            else
             {
                 ProductVM.CategoryList = _unitOfWork.Category.GetAll().ToList().Select(u => new SelectListItem {
                     Text = u.Name,
@@ -190,9 +191,6 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             _unitOfWork.Save();
 
             return Json(new { success = true, message = "Deleted Successfully" });
-
-            List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
-            return Json(new { data = objProductList });
         }
         
 
