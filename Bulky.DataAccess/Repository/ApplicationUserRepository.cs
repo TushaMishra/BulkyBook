@@ -1,7 +1,6 @@
 ﻿using BulkyBook.DataAccess.DataAccess.Data;
 using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
-using BulkyBook.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +9,12 @@ using System.Threading.Tasks;
 
 namespace BulkyBook.DataAccess.Repository
 {
-    public class CompanyRepository : Repository<Company>, ICompanyRepository
+    public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
         private readonly ApplicationDbContext _db;
-
-        public CompanyRepository(ApplicationDbContext db) : base(db)
+        public ApplicationUserRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
-
-        public void Update(Company obj)
-        {
-            _db.Companies.Update(obj);
-        }
-
     }
 }
