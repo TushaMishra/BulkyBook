@@ -11,7 +11,7 @@ using BulkyBook.Models;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Bulky.Model.ViewModels
+namespace BulkyBook.Models.ViewModels
 {
     public class ProductVM
     {

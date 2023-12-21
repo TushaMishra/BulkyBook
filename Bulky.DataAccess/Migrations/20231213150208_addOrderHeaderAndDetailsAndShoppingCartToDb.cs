@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BulkyBook.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class addOrderHeaderAndDetailsToDb : Migration
+    public partial class addOrderHeaderAndDetailsAndShoppingCartToDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +22,7 @@ namespace BulkyBook.DataAccess.Migrations
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SippingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     OrderTotal = table.Column<double>(type: "float", nullable: false),
-                    OrderStates = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TrackingNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Carrier = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -33,7 +33,8 @@ namespace BulkyBook.DataAccess.Migrations
                     StreetAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,6 +44,33 @@ namespace BulkyBook.DataAccess.Migrations
                         column: x => x.ApplicationUseId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShoppingCarts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Count = table.Column<int>(type: "int", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCarts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCarts_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCarts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,11 +102,6 @@ namespace BulkyBook.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCarts_ProductId",
-                table: "ShoppingCarts",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_OrderHeaderId",
                 table: "OrderDetails",
                 column: "OrderHeaderId");
@@ -93,31 +116,28 @@ namespace BulkyBook.DataAccess.Migrations
                 table: "OrderHeaders",
                 column: "ApplicationUseId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_ShoppingCarts_Products_ProductId",
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCarts_ApplicationUserId",
                 table: "ShoppingCarts",
-                column: "ProductId",
-                principalTable: "Products",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCarts_ProductId",
+                table: "ShoppingCarts",
+                column: "ProductId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_ShoppingCarts_Products_ProductId",
-                table: "ShoppingCarts");
-
             migrationBuilder.DropTable(
                 name: "OrderDetails");
 
             migrationBuilder.DropTable(
-                name: "OrderHeaders");
+                name: "ShoppingCarts");
 
-            migrationBuilder.DropIndex(
-                name: "IX_ShoppingCarts_ProductId",
-                table: "ShoppingCarts");
+            migrationBuilder.DropTable(
+                name: "OrderHeaders");
         }
     }
 }

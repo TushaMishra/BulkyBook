@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulkyBook.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231212111808_addOrderHeaderAndDetailsToDb")]
-    partial class addOrderHeaderAndDetailsToDb
+    [Migration("20231213150208_addOrderHeaderAndDetailsAndShoppingCartToDb")]
+    partial class addOrderHeaderAndDetailsAndShoppingCartToDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -191,7 +191,7 @@ namespace BulkyBook.DataAccess.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("OrderStates")
+                    b.Property<string>("OrderStatus")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("OrderTotal")
@@ -207,6 +207,10 @@ namespace BulkyBook.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
