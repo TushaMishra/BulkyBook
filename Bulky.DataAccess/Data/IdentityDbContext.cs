@@ -1,4 +1,4 @@
-﻿namespace BulkyBook.DataAccess.DataAccess.Data
+﻿namespace BulkyBook.DataAccess.Data
 {
     public class IdentityDbContext
     {

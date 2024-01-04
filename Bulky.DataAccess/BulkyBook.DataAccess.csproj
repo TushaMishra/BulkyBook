@@ -22,10 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bulky.Models\BulkyBook.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\Bulky.Utility\BulkyBook.Utility.csproj" />
   </ItemGroup>
 
 </Project>

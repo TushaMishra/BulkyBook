@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BulkyBook.Models
+namespace BulkyBook.Models.Models
 {
     public class Product
     {
@@ -16,7 +16,7 @@ namespace BulkyBook.Models
         [Required]
         public string Title { get; set; }
         [Required]
-        public String Discription { get; set; }
+        public string Discription { get; set; }
         [Required]
         public string ISBN { get; set; }
         [Required]
@@ -40,7 +40,7 @@ namespace BulkyBook.Models
         [Display(Name = "Price dor 100+")]
         [Range(1, 1000)]
         public double Price100 { get; set; }
-        
+
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         [ValidateNever]

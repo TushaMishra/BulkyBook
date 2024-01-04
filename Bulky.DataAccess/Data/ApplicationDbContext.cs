@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using BulkyBook.Models.Models;
 using BulkyBook.Models;
 
-namespace BulkyBook.DataAccess.DataAccess.Data
+namespace BulkyBook.DataAccess.Data
 {
     public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
@@ -32,15 +33,15 @@ namespace BulkyBook.DataAccess.DataAccess.Data
                 new Category { Id = 3, Name = "History", DisplayOrder = 3 }
                 );
             modelBuilder.Entity<Company>().HasData(
-                new Company 
-                { 
-                    Id = 1, 
-                    Name = "Tech Solution", 
-                    StreetAddress = "123 Tech St", 
-                    City="Tech City", 
-                    PostalCode="12121", 
-                    State="IL", 
-                    PhoneNumber="6665658791" 
+                new Company
+                {
+                    Id = 1,
+                    Name = "Tech Solution",
+                    StreetAddress = "123 Tech St",
+                    City = "Tech City",
+                    PostalCode = "12121",
+                    State = "IL",
+                    PhoneNumber = "6665658791"
                 },
                 new Company
                 {

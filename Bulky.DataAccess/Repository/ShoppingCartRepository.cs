@@ -1,11 +1,11 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
-using BulkyBook.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BulkyBook.DataAccess.DataAccess.Data;
+using BulkyBook.DataAccess.Data;
+using BulkyBook.Models.Models;
 
 namespace BulkyBook.DataAccess.Repository
 {

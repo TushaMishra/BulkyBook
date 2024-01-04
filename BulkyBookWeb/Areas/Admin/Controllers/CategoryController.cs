@@ -1,9 +1,9 @@
-﻿using BulkyBook.Models;
-using BulkyBook.DataAccess.Repository.IRepository;
+﻿using BulkyBook.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using BulkyBook.Utility;
+using BulkyBook.Models.Models;
 
 namespace BulkyBookWeb.Areas.Admin.Controllers
 {

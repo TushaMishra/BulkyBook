@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc;
-using BulkyBook.Models;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
+using BulkyBook.Models.Models;
 
 namespace BulkyBook.Models.ViewModels
 {

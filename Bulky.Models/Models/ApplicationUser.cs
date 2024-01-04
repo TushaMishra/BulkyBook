@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BulkyBook.Models
+namespace BulkyBook.Models.Models
 {
-    public class ApplicationUser: IdentityUser
+    public class ApplicationUser : IdentityUser
     {
         [Required]
         public string? Name { get; set; }
@@ -23,6 +23,8 @@ namespace BulkyBook.Models
 
         [ForeignKey("CompanyId")]
         [ValidateNever]
-        public int? Company { get; set; }
+        public Company? Company { get; set; }
+        [NotMapped]
+        public string Role { get; set; }
     }
 }

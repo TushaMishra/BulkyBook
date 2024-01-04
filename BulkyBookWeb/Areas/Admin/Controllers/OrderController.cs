@@ -36,7 +36,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             return View(OrderVM);
         }
         [HttpPost]
-        [Authorize(Roles = SD.Role_Admin+","+SD.Role_Emoloyee)]
+        [Authorize(Roles = SD.Role_Admin+","+SD.Role_Employee)]
         public IActionResult UpdateOrderDetail()
         {
             var orderHeaderFromDb = _unitOfWork.OrderHeader.Get(u => u.Id == OrderVM.OrderHeader.Id);
@@ -62,7 +62,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             return RedirectToAction(nameof(Details), new {orderId = orderHeaderFromDb.Id});
         }
         [HttpPost]
-        [Authorize(Roles = SD.Role_Admin+","+SD.Role_Emoloyee)]
+        [Authorize(Roles = SD.Role_Admin+","+SD.Role_Employee)]
         public IActionResult StartProcessing()
         {
             _unitOfWork.OrderHeader.UpdateStatus(OrderVM.OrderHeader.Id, SD.StatusInProcess);
@@ -72,7 +72,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id});
         }
         [HttpPost]
-        [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Emoloyee)]
+        [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
         public IActionResult ShipOrder()
         {
             var orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == OrderVM.OrderHeader.Id);
@@ -92,7 +92,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
         }
         [HttpPost]
-        [Authorize(Roles = SD.Role_Admin+","+SD.Role_Emoloyee)]
+        [Authorize(Roles = SD.Role_Admin+","+SD.Role_Employee)]
         public IActionResult CancelOrder()
         {
             var orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == OrderVM.OrderHeader.Id);
@@ -131,7 +131,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
             //stripe logic
 
-            var domain = "https://localhost:7001/";
+            var domain = Request.Scheme+ "://"+ Request.Host.Value + "/";
             var options = new Stripe.Checkout.SessionCreateOptions
             {
                 SuccessUrl = domain + $"admin/order/PaymentConfirmation?orderHeaderId={OrderVM.OrderHeader.Id}",
@@ -193,7 +193,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         {
             IEnumerable<OrderHeader> objOrderHeaders;
 
-            if(User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Emoloyee))
+            if(User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
             {
                 objOrderHeaders = _unitOfWork.OrderHeader.GetAll(includeProperties: "ApplicationUser").ToList();
             }
