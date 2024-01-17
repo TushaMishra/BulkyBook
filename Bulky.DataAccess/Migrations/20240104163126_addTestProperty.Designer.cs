@@ -4,6 +4,7 @@ using BulkyBook.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulkyBook.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240104163126_addTestProperty")]
+    partial class addTestProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +43,7 @@ namespace BulkyBook.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -95,7 +98,7 @@ namespace BulkyBook.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
 
                     b.HasData(
                         new
@@ -156,7 +159,7 @@ namespace BulkyBook.DataAccess.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetails", (string)null);
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("BulkyBook.Models.Models.Product", b =>
@@ -182,6 +185,10 @@ namespace BulkyBook.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("ListPrice")
                         .HasColumnType("float");
 
@@ -194,6 +201,9 @@ namespace BulkyBook.DataAccess.Migrations
                     b.Property<double>("Price50")
                         .HasColumnType("float");
 
+                    b.Property<int>("TestProperty")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -202,7 +212,7 @@ namespace BulkyBook.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
 
                     b.HasData(
                         new
@@ -212,10 +222,12 @@ namespace BulkyBook.DataAccess.Migrations
                             CategoryId = 1,
                             Discription = "This is a book to know the world under ocean",
                             ISBN = "SJO111212222",
+                            ImageUrl = "",
                             ListPrice = 30.0,
                             Price = 27.0,
                             Price100 = 20.0,
                             Price50 = 25.0,
+                            TestProperty = 0,
                             Title = "Rock in the Ocean"
                         },
                         new
@@ -225,10 +237,12 @@ namespace BulkyBook.DataAccess.Migrations
                             CategoryId = 1,
                             Discription = "This is a book to know the world under ocean",
                             ISBN = "SJO111212222",
+                            ImageUrl = "",
                             ListPrice = 70.0,
                             Price = 65.0,
                             Price100 = 55.0,
                             Price50 = 60.0,
+                            TestProperty = 0,
                             Title = "Cotton Candy"
                         },
                         new
@@ -238,10 +252,12 @@ namespace BulkyBook.DataAccess.Migrations
                             CategoryId = 2,
                             Discription = "This is a book to know the world under ocean",
                             ISBN = "SJO111212222",
+                            ImageUrl = "",
                             ListPrice = 55.0,
                             Price = 50.0,
                             Price100 = 35.0,
                             Price50 = 40.0,
+                            TestProperty = 0,
                             Title = "Vanish in the Sunset"
                         },
                         new
@@ -251,10 +267,12 @@ namespace BulkyBook.DataAccess.Migrations
                             CategoryId = 1,
                             Discription = "This is a book to know the world under ocean",
                             ISBN = "SJO111212222",
+                            ImageUrl = "",
                             ListPrice = 40.0,
                             Price = 30.0,
                             Price100 = 20.0,
                             Price50 = 25.0,
+                            TestProperty = 0,
                             Title = "Dark Skies"
                         },
                         new
@@ -264,10 +282,12 @@ namespace BulkyBook.DataAccess.Migrations
                             CategoryId = 2,
                             Discription = "This is a book to know the world under ocean",
                             ISBN = "SJO111212222",
+                            ImageUrl = "",
                             ListPrice = 99.0,
                             Price = 90.0,
                             Price100 = 80.0,
                             Price50 = 85.0,
+                            TestProperty = 0,
                             Title = "Forune of Time"
                         },
                         new
@@ -277,34 +297,14 @@ namespace BulkyBook.DataAccess.Migrations
                             CategoryId = 3,
                             Discription = "This is a book to know the world under ocean",
                             ISBN = "SJO111212222",
+                            ImageUrl = "",
                             ListPrice = 30.0,
                             Price = 27.0,
                             Price100 = 20.0,
                             Price50 = 25.0,
+                            TestProperty = 0,
                             Title = "Rock in the Ocean"
                         });
-                });
-
-            modelBuilder.Entity("BulkyBook.Models.Models.ProductImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductImages", (string)null);
                 });
 
             modelBuilder.Entity("BulkyBook.Models.Models.ShoppingCart", b =>
@@ -331,7 +331,7 @@ namespace BulkyBook.DataAccess.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ShoppingCarts", (string)null);
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("BulkyBook.Models.OrderHeader", b =>
@@ -407,7 +407,7 @@ namespace BulkyBook.DataAccess.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("OrderHeaders", (string)null);
+                    b.ToTable("OrderHeaders");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -674,17 +674,6 @@ namespace BulkyBook.DataAccess.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("BulkyBook.Models.Models.ProductImage", b =>
-                {
-                    b.HasOne("BulkyBook.Models.Models.Product", "Product")
-                        .WithMany("ProductImages")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("BulkyBook.Models.Models.ShoppingCart", b =>
                 {
                     b.HasOne("BulkyBook.Models.Models.ApplicationUser", "ApplicationUser")
@@ -773,11 +762,6 @@ namespace BulkyBook.DataAccess.Migrations
                         .HasForeignKey("CompanyId");
 
                     b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("BulkyBook.Models.Models.Product", b =>
-                {
-                    b.Navigation("ProductImages");
                 });
 #pragma warning restore 612, 618
         }
