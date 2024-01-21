@@ -85,7 +85,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                     foreach (IFormFile file in files)
                     {
                         string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                        string productPath = @"images\product\Product-" + ProductVM.Product.Id;
+                        string productPath = @"images+\product\Product-" + ProductVM.Product.Id;
                         string finalPath = Path.Combine(wwwRootPath, productPath);
 
                         if (!Directory.Exists(finalPath))
@@ -227,7 +227,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                  System.IO.File.Delete(oldImagePath);
              }*/
 
-            string productPath = @"images\product\Product-" + id;
+            string productPath = @"images+\product\Product-" + id;
             string finalPath = Path.Combine(_webHostEnvironment.WebRootPath, productPath);
 
             if (Directory.Exists(finalPath))
